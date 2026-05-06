@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.env.local
+target/
+*.lock
+.DS_Store
+coverage/

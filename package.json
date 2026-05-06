@@ -1,0 +1,19 @@
+{
+  "name": "stellar-blacklist-oracle",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "backend/*",
+    "sdk/js",
+    "wallet-demo",
+    "validator-node"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "dev": "docker-compose up -d && npm run dev --workspaces --if-present"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

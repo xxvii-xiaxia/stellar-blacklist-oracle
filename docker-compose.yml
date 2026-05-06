@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: blacklist_oracle
+      POSTGRES_USER: oracle
+      POSTGRES_PASSWORD: oracle_secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    build: ./backend/api
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://oracle:oracle_secret@postgres:5432/blacklist_oracle
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+
+  indexer:
+    build: ./backend/indexer
+    environment:
+      DATABASE_URL: postgres://oracle:oracle_secret@postgres:5432/blacklist_oracle
+      HORIZON_URL: https://horizon-testnet.stellar.org
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:

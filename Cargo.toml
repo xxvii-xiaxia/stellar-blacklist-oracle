@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "contracts/blacklist-oracle",
+    "sdk/rust",
+]
+resolver = "2"
